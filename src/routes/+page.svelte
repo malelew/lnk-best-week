@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { bestWeek, events, formatEventDate, formatWeekRange } from '$lib/events';
+	import { formatEventDate, formatWeekRange } from '$lib/dates';
+	import { bestWeek, events } from '$lib/events';
 
 	const weekRange = formatWeekRange(bestWeek.startDate, bestWeek.endDate);
 </script>
