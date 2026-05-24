@@ -22,6 +22,49 @@ export const bestWeek = {
   tagline: "It only comes once every few years and it starts now.",
 } as const;
 
+const dateFormat = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+});
+
+const weekdayFormat = new Intl.DateTimeFormat("en-US", { weekday: "long" });
+
+/** Parse YYYY-MM-DD in local time (avoids UTC off-by-one). */
+function parseDate(iso: string): Date {
+  return new Date(`${iso}T12:00:00`);
+}
+
+export function formatWeekRange(start: string, end: string): string {
+  const startDate = parseDate(start);
+  const endDate = parseDate(end);
+  const sameYear = startDate.getFullYear() === endDate.getFullYear();
+  const sameMonth = sameYear && startDate.getMonth() === endDate.getMonth();
+
+  if (sameMonth) {
+    const month = startDate.toLocaleDateString("en-US", { month: "long" });
+    return `${month} ${startDate.getDate()} to ${endDate.getDate()}, ${endDate.getFullYear()}`;
+  }
+
+  if (sameYear) {
+    const startPart = startDate.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+    });
+    const endPart = endDate.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+    });
+    return `${startPart} to ${endPart}, ${endDate.getFullYear()}`;
+  }
+
+  return `${dateFormat.format(startDate)} to ${dateFormat.format(endDate)}`;
+}
+
+export function formatEventDate(iso: string): string {
+  return weekdayFormat.format(parseDate(iso));
+}
+
 export const events: Event[] = [
   {
     id: "soul-night",
@@ -30,7 +73,7 @@ export const events: Event[] = [
     time: "10:00 PM to 2:00 AM",
     location: "The Old Pub",
     blurb:
-      "The best week in Lincoln kicks off with the best night of dance, music and good vibes. Soul Club is hosted on the last Saturday of the month, but it isn't always followed by a full week of festivities.",
+      "The best week in Lincoln kicks off with the best night of dance, music, and good vibes. Soul Club lands on the last Saturday of the month ($3 cover, 21+)—and this time it kicks off a full week of festivities.",
     url: "https://www.facebook.com/theoldpubllc/",
     free: false,
   },
@@ -57,8 +100,8 @@ export const events: Event[] = [
     free: true,
   },
   {
-    id: "hub-Farmers-market",
-    title: "Hub Farmers Market",
+    id: "hub-farmers-market",
+    title: "Hub Farmers' Market",
     date: "2026-06-03",
     time: "5:00 PM to 7:00 PM",
     location: "The Hub",
@@ -72,9 +115,9 @@ export const events: Event[] = [
     title: "Stransky Park Concert",
     date: "2026-06-04",
     time: "7:00 PM to 9:00 PM",
-    location: "Stransky Park, Lincoln, NE",
+    location: "Stransky Park (17th & Harrison), Lincoln, NE",
     blurb:
-      "KZUM's summer concert series kicks off with a Womanish Girl. Pack a blanket and snacks or plan on grabbing dinner from the food truck.",
+      "KZUM's summer concert series kicks off with Womanish Girl. Pack a blanket and snacks, or grab dinner from the food truck.",
     url: "https://www.instagram.com/p/DX62LnSFjZp/?img_index=1",
     free: true,
   },
@@ -107,7 +150,7 @@ export const events: Event[] = [
     time: "12:00 PM to 4:00 PM",
     location: "Corner of 11th & B Streets, Lincoln, NE 68502",
     blurb:
-      "A celebration of local treasure Pepe Fierro of Pepe's Bistro by hosting a combo Made Here Market, 402 Youth Market event featuring local creatives and youth entrepreneurs",
+      "Celebrate local treasure Pepe Fierro of Pepe's Bistro with a combined Made Here Market and 402 Youth Market at 11th & B.",
     url: "https://www.instagram.com/madeheremarket/p/DXDE3KRDfHp/",
     free: true,
   },
