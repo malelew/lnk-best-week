@@ -52,7 +52,7 @@ export const events: Event[] = [
     time: "5:00 PM to 8:45 PM",
     location: "University of Nebraska-Lincoln • Sheldon Sculpture Garden",
     blurb:
-      "Jazz in June is a free event that brings world-class jazz musicians to perform at the Sheldon Sculpture Garden. This year it kicks off with TERELL STAFFORD. Food festival at 5 PM followed by the live performance from 7 PM to 8:45 PM.",
+      "Jazz in June is a free event that brings world-class jazz musicians to perform at the Sheldon Sculpture Garden. This year it kicks off with Terell Stafford. Food festival at 5 PM followed by the live performance from 7 PM to 8:45 PM.",
     url: "https://www.jazzinjune.com/#artist1",
     free: true,
   },
@@ -85,7 +85,7 @@ export const events: Event[] = [
     time: "9:30 PM to 10:55 PM",
     location: "Zoo Bar",
     blurb:
-      "Live band karaoke at the Zoo Bar with Sh*thook. If you catch a second-wind after the show at Stransky, you meet grab a few friends and belt your heart out on stage with live-band accompaniment. Shithook is a live band twist on Karaoke that has been at it for for decades.",
+      "Live band karaoke at the Zoo Bar with Sh*thook. If you catch a second-wind after the show at Stransky, grab a few friends and belt your heart out on stage with live-band accompaniment. Shithook is a live band twist on Karaoke that has been at it for decades.",
     url: "https://zoobar.com/zooevents/",
     free: true,
   },
