@@ -57,7 +57,13 @@
   }
 
   .hero {
-    margin-bottom: 2.5rem;
+    min-height: 100dvh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 0;
   }
 
   h1 {
@@ -81,18 +87,20 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
   }
 
   .event {
-    padding-bottom: 2rem;
+    min-height: 100dvh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 0;
     border-bottom: 1px solid #e0e0e0;
   }
 
   .event:last-child {
-    padding-bottom: 0;
     border-bottom: none;
   }
 
