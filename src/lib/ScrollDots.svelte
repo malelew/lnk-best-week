@@ -67,9 +67,9 @@
     width: 0.5rem;
     height: 0.5rem;
     padding: 0;
-    border: 1.5px solid rgb(0 0 0 / 0.25);
+    border: 1.5px solid rgb(201 167 124 / 0.5);
     border-radius: 50%;
-    background: rgb(255 255 255 / 0.6);
+    background: rgb(255 255 255 / 0.35);
     cursor: pointer;
     pointer-events: auto;
     transition:
@@ -79,8 +79,8 @@
   }
 
   button.active {
-    background: #b45309;
-    border-color: #b45309;
+    background: var(--lnk-gold);
+    border-color: var(--lnk-gold);
     transform: scale(1.25);
   }
 
