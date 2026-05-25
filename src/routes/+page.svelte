@@ -20,7 +20,7 @@
   <ol class="events">
     {#each events as event (event.id)}
       <li class="event">
-        <p class="event-day">{formatEventDate(event.date)}</p>
+        <h2 class="event-day">{formatEventDate(event.date)}</h2>
         <h2 class="event-title">
           {#if event.url}
             <a href={event.url} target="_blank" rel="noopener noreferrer"
@@ -106,7 +106,7 @@
 
   .event-day {
     margin: 0 0 0.25rem;
-    font-size: 0.875rem;
+    font-size: 1.5rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.04em;
@@ -115,7 +115,7 @@
 
   .event-title {
     margin: 0 0 0.35rem;
-    font-size: 1.35rem;
+    font-size: 2.5rem;
     line-height: 1.25;
   }
 
@@ -129,7 +129,7 @@
 
   .event-meta {
     margin: 0 0 0.5rem;
-    font-size: 0.95rem;
+    font-size: 1.25rem;
     color: #555;
   }
 

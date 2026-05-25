@@ -4,7 +4,11 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
   year: "numeric",
 });
 
-const weekdayFormat = new Intl.DateTimeFormat("en-US", { weekday: "long" });
+const weekdayFormat = new Intl.DateTimeFormat("en-US", {
+  weekday: "short",
+  month: "short",
+  day: "numeric",
+});
 
 /** Parse YYYY-MM-DD in local time (avoids UTC off-by-one). */
 function parseDate(iso: string): Date {
@@ -38,5 +42,8 @@ export function formatWeekRange(start: string, end: string): string {
 }
 
 export function formatEventDate(iso: string): string {
-  return weekdayFormat.format(parseDate(iso));
+  const parts = weekdayFormat.formatToParts(parseDate(iso));
+  const get = (type: Intl.DateTimeFormatPartTypes) =>
+    parts.find((p) => p.type === type)?.value ?? "";
+  return `${get("weekday")} · ${get("month")} ${get("day")}`;
 }
