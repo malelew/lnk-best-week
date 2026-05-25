@@ -82,23 +82,38 @@
     justify-content: center;
     margin-bottom: 0;
     h1 {
-      font-size: 7.2rem;
+      font-size: clamp(3rem, 15vw, 7.2rem);
+      font-weight: 800;
+      margin-bottom: 0.5rem;
     }
-    p {
-      font-size: 2.75rem;
+    p.tagline {
+      font-size: 1.5rem;
     }
   }
 
   h1 {
     margin: 0 0 0.25rem;
-    font-size: 2rem;
+    font-size: 1.75rem;
     line-height: 1.15;
   }
 
   .dates {
     margin: 0 0 0.75rem;
-    font-size: 1.125rem;
-    font-weight: 600;
+    font-size: clamp(1.125rem, 4.5vw, 2.75rem);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #b45309;
+  }
+
+  @media (min-width: 48rem) {
+    .dates {
+      font-size: 2.75rem;
+      font-weight: 600;
+      letter-spacing: normal;
+      text-transform: none;
+      color: inherit;
+    }
   }
 
   .tagline {
