@@ -2,6 +2,7 @@
 export type Event = {
   id: string;
   title: string;
+  emoji: string;
   /** ISO date, e.g. "2026-06-02" — used for sorting and display */
   date: string;
   /** Optional time range shown on the card, e.g. "7:00 PM" or "10 AM – 5 PM" */
@@ -26,6 +27,7 @@ export const events: Event[] = [
   {
     id: "soul-night",
     title: "Old Pub Soul Club",
+    emoji: "🪩",
     date: "2026-05-30",
     time: "10:00 PM to 2:00 AM",
     location: "The Old Pub",
@@ -37,6 +39,7 @@ export const events: Event[] = [
   {
     id: "sunday-farmers-market",
     title: "Sunday Farmers' Market at College View",
+    emoji: "🧺",
     date: "2026-05-31",
     time: "10:00 AM to 2:00 PM",
     location: "4801 Prescott Ave, Lincoln, NE",
@@ -48,6 +51,7 @@ export const events: Event[] = [
   {
     id: "jazz-june",
     title: "Jazz in June",
+    emoji: "🎷",
     date: "2026-06-02",
     time: "5:00 PM to 8:45 PM",
     location: "University of Nebraska-Lincoln • Sheldon Sculpture Garden",
@@ -59,6 +63,7 @@ export const events: Event[] = [
   {
     id: "hub-farmers-market",
     title: "Hub Farmers' Market",
+    emoji: "🍴",
     date: "2026-06-03",
     time: "5:00 PM to 7:00 PM",
     location: "The Hub",
@@ -70,6 +75,7 @@ export const events: Event[] = [
   {
     id: "stransky-park",
     title: "Stransky Park Concert",
+    emoji: "⛲",
     date: "2026-06-04",
     time: "7:00 PM to 9:00 PM",
     location: "Stransky Park (17th & Harrison), Lincoln, NE",
@@ -81,6 +87,7 @@ export const events: Event[] = [
   {
     id: "shit-hook",
     title: "Shithook Live Band Karaoke!",
+    emoji: "🎤",
     date: "2026-06-04",
     time: "9:30 PM to 10:55 PM",
     location: "Zoo Bar",
@@ -92,6 +99,7 @@ export const events: Event[] = [
   {
     id: "first-friday",
     title: "First Friday",
+    emoji: "🎨",
     date: "2026-06-05",
     time: "5:00 PM to 11:00 PM",
     location: "Lincoln, NE",
@@ -103,6 +111,7 @@ export const events: Event[] = [
   {
     id: "pepe-birthday-bash",
     title: "Pepe's Birthday Bash",
+    emoji: "🎉",
     date: "2026-06-06",
     time: "12:00 PM to 4:00 PM",
     location: "Corner of 11th & B Streets, Lincoln, NE 68502",
