@@ -108,7 +108,7 @@
     font-weight: 500;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: #b45309;
+    color: var(--lnk-gold);
   }
 
   @media (min-width: 48rem) {
@@ -162,7 +162,7 @@
   }
 
   .event-title a:hover {
-    color: #b45309;
+    color: var(--lnk-teal);
   }
 
   .event-meta {
@@ -179,7 +179,7 @@
   }
 
   .location-map-link:hover {
-    color: #b45309;
+    color: var(--lnk-teal);
     text-decoration-color: currentColor;
   }
 

@@ -3,16 +3,8 @@
   --lnk-blue: #003543;
   --lnk-gold: #c4986a;
   --lnk-white: #ffffff;
-  --lnk-cream: #f4f0ea;
-  --lnk-text: #1a2a30;
-  --lnk-text-muted: #4a5f68;
 }
 
 html {
   scroll-snap-type: y mandatory;
-  background: var(--lnk-blue);
-}
-
-body {
-  margin: 0;
 }
