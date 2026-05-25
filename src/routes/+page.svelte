@@ -2,8 +2,11 @@
   import { formatEventDate, formatWeekRange } from "$lib/dates";
   import { bestWeek, events } from "$lib/events";
   import { locationMapUrls } from "$lib/maps";
+  import ScrollDots from "$lib/ScrollDots.svelte";
 
   const weekRange = formatWeekRange(bestWeek.startDate, bestWeek.endDate);
+
+  let pageEl = $state<HTMLElement | null>(null);
 </script>
 
 <svelte:head>
@@ -11,8 +14,10 @@
   <meta name="description" content={bestWeek.tagline} />
 </svelte:head>
 
-<main class="page">
-  <header class="hero">
+<main class="page" bind:this={pageEl}>
+  <ScrollDots root={pageEl} />
+
+  <header class="hero" data-section>
     <h1>{bestWeek.label}</h1>
     <p class="dates">{weekRange}</p>
     <p class="tagline">{bestWeek.tagline}</p>
@@ -20,7 +25,7 @@
 
   <ol class="events">
     {#each events as event (event.id)}
-      <li class="event">
+      <li class="event" data-section>
         <p class="event-day">{event.emoji} {formatEventDate(event.date)}</p>
         <h2 class="event-title">
           {#if event.url}
