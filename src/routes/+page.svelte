@@ -1,6 +1,7 @@
 <script lang="ts">
   import { formatEventDate, formatWeekRange } from "$lib/dates";
   import { bestWeek, events } from "$lib/events";
+  import { locationMapUrls } from "$lib/maps";
 
   const weekRange = formatWeekRange(bestWeek.startDate, bestWeek.endDate);
 </script>
@@ -30,11 +31,27 @@
             {event.title}
           {/if}
         </h2>
-        {#if event.time}
-          <p class="event-meta">{event.time} · {event.location}</p>
-        {:else}
-          <p class="event-meta">{event.location}</p>
-        {/if}
+        <p class="event-meta">
+          {#if event.time}{event.time} · {/if}
+          {#if event.locationMap}
+            {@const mapUrls = locationMapUrls(event.locationMap)}
+            <span class="location-map">
+              <a
+                class="location-map-link location-map-link--mobile"
+                href={mapUrls.mobile}
+                >{event.location}</a
+              >
+              <a
+                class="location-map-link location-map-link--desktop"
+                href={mapUrls.desktop}
+                target="_blank"
+                rel="noopener noreferrer">{event.location}</a
+              >
+            </span>
+          {:else}
+            {event.location}
+          {/if}
+        </p>
         <p class="event-blurb">{event.blurb}</p>
         {#if event.free === false}
           <p class="event-badge">Cover / paid admission</p>
@@ -131,6 +148,32 @@
     margin: 0 0 0.5rem;
     font-size: 1.25rem;
     color: #555;
+  }
+
+  .location-map-link {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: #bbb;
+    text-underline-offset: 0.15em;
+  }
+
+  .location-map-link:hover {
+    color: #b45309;
+    text-decoration-color: currentColor;
+  }
+
+  .location-map-link--mobile {
+    display: none;
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    .location-map-link--mobile {
+      display: inline;
+    }
+
+    .location-map-link--desktop {
+      display: none;
+    }
   }
 
   .event-blurb {
