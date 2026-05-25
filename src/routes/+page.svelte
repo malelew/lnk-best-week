@@ -32,14 +32,14 @@
           {/if}
         </h2>
         <p class="event-meta">
-          {#if event.time}{event.time} · {/if}
+          {#if event.time}{event.time} ·
+          {/if}
           {#if event.locationMap}
             {@const mapUrls = locationMapUrls(event.locationMap)}
             <span class="location-map">
               <a
                 class="location-map-link location-map-link--mobile"
-                href={mapUrls.mobile}
-                >{event.location}</a
+                href={mapUrls.mobile}>{event.location}</a
               >
               <a
                 class="location-map-link location-map-link--desktop"
@@ -114,11 +114,6 @@
     flex-direction: column;
     justify-content: center;
     padding-bottom: 0;
-    border-bottom: 1px solid #e0e0e0;
-  }
-
-  .event:last-child {
-    border-bottom: none;
   }
 
   .event-day {
