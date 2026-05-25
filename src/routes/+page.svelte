@@ -20,7 +20,7 @@
   <ol class="events">
     {#each events as event (event.id)}
       <li class="event">
-        <h2 class="event-day">{event.emoji} {formatEventDate(event.date)}</h2>
+        <p class="event-day">{event.emoji} {formatEventDate(event.date)}</p>
         <h2 class="event-title">
           {#if event.url}
             <a href={event.url} target="_blank" rel="noopener noreferrer"
