@@ -139,7 +139,7 @@ export const events: Event[] = [
     emoji: "🎨",
     date: "2026-06-05",
     time: "5:00 PM to 11:00 PM",
-    location: "Lincoln, NE",
+    location: "Downtown Lincoln, NE",
     locationMap: {
       query: "116 N 14th St, Lincoln, NE 68508",
       lat: 40.8138564,
