@@ -24,10 +24,11 @@ export type Event = {
 
 /** Week-level copy — adjust to match your real dates */
 export const bestWeek = {
-  label: "Best week in LNK",
+  label: "LNK @ ITS BEST",
   startDate: "2026-05-30",
   endDate: "2026-06-06",
-  tagline: "It only comes once every few years and it starts now.",
+  tagline:
+    "This is the ideal week in Lincoln. Invite your friends, family, crush, or that pesky situationship out to something! There's something for everyone and it's the perfect way to set the tone for the summer.",
 } as const;
 
 export const events: Event[] = [
