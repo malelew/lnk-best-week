@@ -7,4 +7,5 @@
 
 html {
   scroll-snap-type: y mandatory;
+  overflow-x: clip;
 }

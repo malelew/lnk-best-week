@@ -102,7 +102,7 @@
     border: none;
     border-radius: 0;
     background: transparent;
-    color: var(--lnk-blue);
+    color: var(--lnk-gold);
   }
 
   button.active .star {
