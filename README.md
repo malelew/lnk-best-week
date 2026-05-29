@@ -1,26 +1,12 @@
-# sv
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8c3deca5-b612-4bb4-85ca-890c7aea3762/deploy-status)](https://app.netlify.com/projects/lnk-best-week/deploys)
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+# LNK @ ITS BEST
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```sh
-# create a new project
-npx sv create my-app
-```
-
-To recreate this project with the same configuration:
-
-```sh
-# recreate this project
-pnpm dlx sv@0.15.3 create --template minimal --types ts --install pnpm .
-```
+Someone once asked me what they should check out if they ever find themselves in Lincoln, NE. My immediate response was to not bother. Then... I realized there was an ideal week to be in town. If the stars align and May ends before the first Tuesday in June, then you have a chance to expierence all the summer fun during ideal weather conditions.
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Once you've created a project and installed dependencies with `pnpm install`, start a development server:
 
 ```sh
 npm run dev
@@ -38,5 +24,3 @@ npm run build
 ```
 
 You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
