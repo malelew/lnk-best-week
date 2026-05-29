@@ -94,7 +94,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 100dvw;
     margin-top: -2rem;
     margin-bottom: 0;
     margin-inline: calc(50% - 50dvw);
