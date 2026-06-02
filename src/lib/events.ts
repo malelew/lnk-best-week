@@ -28,7 +28,7 @@ export const bestWeek = {
   startDate: "2026-05-30",
   endDate: "2026-06-06",
   tagline:
-    "The last Saturday in May going into June is the ideal week in Lincoln. Invite your friends, family, crush, or that pesky situationship out to fun event while the weather is still nice! There's something for everyone, and it's your chance to set the tone for the summer.",
+    "This week is the ideal week in Lincoln. Invite your friends, family, crush, or that pesky situationship out to fun event while the weather is still nice! There's something for everyone, and it's your chance to set the tone for the summer.",
 } as const;
 
 export const events: Event[] = [
