@@ -5,15 +5,14 @@
   import { getEventDomId } from "$lib/week";
   import { locationMapUrls } from "$lib/maps";
   import ScrollDots from "$lib/ScrollDots.svelte";
+  import { scrollToSection } from "$lib/scroll";
 
   const weekRange = formatWeekRange(bestWeek.startDate, bestWeek.endDate);
 
   let pageEl = $state<HTMLElement | null>(null);
 
-  function scrollToEvent(id: string) {
-    document
-      .getElementById(id)
-      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  function scrollToSectionIndex(index: number) {
+    scrollToSection(pageEl, index);
   }
 </script>
 
@@ -32,7 +31,7 @@
       {events}
       startDate={bestWeek.startDate}
       endDate={bestWeek.endDate}
-      onScrollToId={scrollToEvent}
+      onScrollToSection={scrollToSectionIndex}
     />
   </header>
 
@@ -101,6 +100,7 @@
       color-mix(in srgb, var(--lnk-teal) 50%, var(--lnk-gold)) 100%
     );
 
+    min-height: 100svh;
     min-height: 100dvh;
     scroll-snap-align: start;
     scroll-snap-stop: always;
@@ -149,6 +149,7 @@
   }
 
   .event {
+    min-height: 100svh;
     min-height: 100dvh;
     scroll-snap-align: start;
     scroll-snap-stop: always;

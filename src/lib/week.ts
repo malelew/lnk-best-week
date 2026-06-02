@@ -37,3 +37,22 @@ export function getNextUpEvent(
 export function getEventDomId(event: Event): string {
   return `event-${event.id}`;
 }
+
+/** Ms until next midnight in the given IANA timezone (for timers; not reactive). */
+export function getMsUntilMidnight(
+  timeZone: string,
+  date: Date = new Date(),
+): number {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone,
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(date);
+  const get = (type: Intl.DateTimeFormatPartTypes) =>
+    Number(parts.find((p) => p.type === type)?.value ?? 0);
+  const elapsed =
+    get("hour") * 3600_000 + get("minute") * 60_000 + get("second") * 1000;
+  return 86_400_000 - elapsed + 1000;
+}
