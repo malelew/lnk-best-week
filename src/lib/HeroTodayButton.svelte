@@ -3,6 +3,7 @@
   import type { Event } from "$lib/events";
   import { eventSectionIndex } from "$lib/scroll";
   import {
+    getEventDomId,
     getMsUntilMidnight,
     getNextUpEvent,
     getTodayEvents,
@@ -24,9 +25,16 @@
   } = $props();
 
   let now = $state(new Date());
+  let isMobileLike = $state(false);
 
   onMount(() => {
     now = new Date();
+    const mediaQuery = window.matchMedia("(hover: none) and (pointer: coarse)");
+    const updateIsMobileLike = () => {
+      isMobileLike = mediaQuery.matches;
+    };
+    updateIsMobileLike();
+    mediaQuery.addEventListener("change", updateIsMobileLike);
 
     let timeoutId: ReturnType<typeof setTimeout>;
 
@@ -39,7 +47,10 @@
     };
 
     scheduleMidnight();
-    return () => window.clearTimeout(timeoutId);
+    return () => {
+      window.clearTimeout(timeoutId);
+      mediaQuery.removeEventListener("change", updateIsMobileLike);
+    };
   });
 
   const todayIso = $derived(toLocalIso(now));
@@ -75,6 +86,7 @@
     const prefix = mode === "today" ? "today's event" : "next event";
     return `Go to ${prefix}: ${scrollTarget.title}`;
   });
+  const anchorHref = $derived(scrollTarget ? `#${getEventDomId(scrollTarget)}` : "");
 
   function handleClick(event: MouseEvent) {
     if (!scrollTarget) return;
@@ -86,25 +98,47 @@
 </script>
 
 {#if mode}
-  <button
-    type="button"
-    class="live-today"
-    aria-label={ariaLabel}
-    onclick={handleClick}
-  >
-    <span class="eyebrow">
-      {#if mode === "today"}
-        <span class="live-dot" aria-hidden="true"></span>
-        Today
-      {:else}
-        Next up
-      {/if}
-    </span>
-    <span class="primary">
-      <span class="titles">{primaryLabel}</span>
-      <span class="chevron" aria-hidden="true">↓</span>
-    </span>
-  </button>
+  {#if isMobileLike}
+    <a
+      class="live-today"
+      href={anchorHref}
+      aria-label={ariaLabel}
+      data-sveltekit-noscroll
+    >
+      <span class="eyebrow">
+        {#if mode === "today"}
+          <span class="live-dot" aria-hidden="true"></span>
+          Today
+        {:else}
+          Next up
+        {/if}
+      </span>
+      <span class="primary">
+        <span class="titles">{primaryLabel}</span>
+        <span class="chevron" aria-hidden="true">↓</span>
+      </span>
+    </a>
+  {:else}
+    <button
+      type="button"
+      class="live-today"
+      aria-label={ariaLabel}
+      onclick={handleClick}
+    >
+      <span class="eyebrow">
+        {#if mode === "today"}
+          <span class="live-dot" aria-hidden="true"></span>
+          Today
+        {:else}
+          Next up
+        {/if}
+      </span>
+      <span class="primary">
+        <span class="titles">{primaryLabel}</span>
+        <span class="chevron" aria-hidden="true">↓</span>
+      </span>
+    </button>
+  {/if}
 {/if}
 
 <style>
@@ -134,6 +168,7 @@
       var(--btn-shadow-color);
     font: inherit;
     text-align: left;
+    text-decoration: none;
     cursor: pointer;
     transition:
       background 0.12s ease,
