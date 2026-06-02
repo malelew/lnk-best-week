@@ -28,7 +28,7 @@ export const bestWeek = {
   startDate: "2026-05-30",
   endDate: "2026-06-06",
   tagline:
-    "The last Saturday in May into June is the ideal week in Lincoln. Invite your friends, family, crush, or that pesky situationship out to something! There's something for everyone and it's the perfect way to set the tone for the summer.",
+    "The last Saturday in May going into June is the ideal week in Lincoln. Invite your friends, family, crush, or that pesky situationship out to fun event while the weather is still nice! There's something for everyone, and it's your chance to set the tone for the summer.",
 } as const;
 
 export const events: Event[] = [
@@ -96,7 +96,7 @@ export const events: Event[] = [
       lng: -96.693306,
     },
     blurb:
-      "Lincoln's centrally located farmers market. Visit for fresh produce and farm goods or just stop by to grab a bite or drink with a friend while you enjoy the outdoor seating and musical act.",
+      "Lincoln's centrally located farmers market. Visit for farm fresh goods or just stop by to grab a bite and drink with a friend while you enjoy the outdoor seating and musical act.",
     url: "https://www.hubfarmersmarket.org/",
     free: true,
   },
@@ -113,7 +113,7 @@ export const events: Event[] = [
       lng: -96.6989367,
     },
     blurb:
-      "KZUM's summer concert series kicks off with Womanish Girl. Pack a blanket and snacks, or grab dinner from the food truck.",
+      "KZUM's summer concert series starts this year with Womanish Girl. Pack a blanket and snacks, or grab dinner from the food truck.",
     url: "https://www.instagram.com/p/DX62LnSFjZp/?img_index=1",
     free: true,
   },
@@ -130,7 +130,7 @@ export const events: Event[] = [
       lng: -96.7033783,
     },
     blurb:
-      "Live band karaoke at the Zoo Bar with Sh*thook. If you catch a second-wind after the show at Stransky, grab a few friends and belt your heart out on stage with live-band accompaniment. Shithook is a live band twist on Karaoke that has been at it for decades.",
+      "Live band karaoke at the Zoo Bar with Sh*thook. If you catch a second-wind after the show at Stransky, you can belt your heart out on stage with live-band accompaniment. Shithook is a live band twist on Karaoke that has been at it for decades.",
     url: "https://zoobar.com/zooevents/",
     free: true,
   },
