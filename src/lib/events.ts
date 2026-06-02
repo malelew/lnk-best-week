@@ -84,6 +84,23 @@ export const events: Event[] = [
     free: true,
   },
   {
+    id: "too-hot-tuesday",
+    title: "Too Hot Tuesday",
+    emoji: "🔥",
+    date: "2026-06-02",
+    time: "9:00 PM to 1:30 AM",
+    location: "Duffy's Tavern",
+    locationMap: {
+      query: "Duffy's Tavern, 1412 E O St, Lincoln, NE 68508",
+      lat: 40.813797922453865,
+      lng: -96.70080000046681,
+    },
+    blurb:
+      "Too Hot Tuesday is a free 21+ dance party with DJRUGBURN on the decks.",
+    url: "https://www.instagram.com/p/DZD1xI5jicC/",
+    free: true,
+  },
+  {
     id: "hub-farmers-market",
     title: "Hub Farmers' Market",
     emoji: "🍴",
