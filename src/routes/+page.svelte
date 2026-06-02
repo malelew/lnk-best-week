@@ -100,6 +100,7 @@
       color-mix(in srgb, var(--lnk-teal) 50%, var(--lnk-gold)) 100%
     );
 
+    min-height: 100svh;
     min-height: 100dvh;
     scroll-snap-align: start;
     scroll-snap-stop: always;
@@ -148,6 +149,7 @@
   }
 
   .event {
+    min-height: 100svh;
     min-height: 100dvh;
     scroll-snap-align: start;
     scroll-snap-stop: always;

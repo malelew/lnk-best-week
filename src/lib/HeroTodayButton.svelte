@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { browser } from "$app/environment";
-  import { onMount } from "svelte";
+  import { onMount, untrack } from "svelte";
   import type { Event } from "$lib/events";
   import { eventSectionIndex } from "$lib/scroll";
   import {
+    getEventDomId,
+    getMsUntilMidnight,
     getNextUpEvent,
     getTodayEvents,
     getWeekPhase,
@@ -24,35 +25,32 @@
   } = $props();
 
   let now = $state(new Date());
+  let isMobileLike = $state(false);
 
   onMount(() => {
     now = new Date();
-  });
+    const mediaQuery = window.matchMedia("(hover: none) and (pointer: coarse)");
+    const updateIsMobileLike = () => {
+      isMobileLike = mediaQuery.matches;
+    };
+    updateIsMobileLike();
+    mediaQuery.addEventListener("change", updateIsMobileLike);
 
-  $effect(() => {
-    if (!browser) return;
+    let timeoutId: ReturnType<typeof setTimeout>;
 
-    const tick = () => {
-      now = new Date();
+    const scheduleMidnight = () => {
+      const ms = untrack(() => getMsUntilMidnight(WEEK_TZ));
+      timeoutId = window.setTimeout(() => {
+        now = new Date();
+        scheduleMidnight();
+      }, ms);
     };
 
-    const msUntilMidnight = () => {
-      const parts = new Intl.DateTimeFormat("en-US", {
-        timeZone: WEEK_TZ,
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric",
-        hour12: false,
-      }).formatToParts(now);
-      const get = (type: Intl.DateTimeFormatPartTypes) =>
-        Number(parts.find((p) => p.type === type)?.value ?? 0);
-      const elapsed =
-        get("hour") * 3600_000 + get("minute") * 60_000 + get("second") * 1000;
-      return 86_400_000 - elapsed + 1000;
+    scheduleMidnight();
+    return () => {
+      window.clearTimeout(timeoutId);
+      mediaQuery.removeEventListener("change", updateIsMobileLike);
     };
-
-    const timeout = window.setTimeout(tick, msUntilMidnight());
-    return () => window.clearTimeout(timeout);
   });
 
   const todayIso = $derived(toLocalIso(now));
@@ -88,6 +86,7 @@
     const prefix = mode === "today" ? "today's event" : "next event";
     return `Go to ${prefix}: ${scrollTarget.title}`;
   });
+  const anchorHref = $derived(scrollTarget ? `#${getEventDomId(scrollTarget)}` : "");
 
   function handleClick(event: MouseEvent) {
     if (!scrollTarget) return;
@@ -99,25 +98,47 @@
 </script>
 
 {#if mode}
-  <button
-    type="button"
-    class="live-today"
-    aria-label={ariaLabel}
-    onclick={handleClick}
-  >
-    <span class="eyebrow">
-      {#if mode === "today"}
-        <span class="live-dot" aria-hidden="true"></span>
-        Today
-      {:else}
-        Next up
-      {/if}
-    </span>
-    <span class="primary">
-      <span class="titles">{primaryLabel}</span>
-      <span class="chevron" aria-hidden="true">↓</span>
-    </span>
-  </button>
+  {#if isMobileLike}
+    <a
+      class="live-today"
+      href={anchorHref}
+      aria-label={ariaLabel}
+      data-sveltekit-noscroll
+    >
+      <span class="eyebrow">
+        {#if mode === "today"}
+          <span class="live-dot" aria-hidden="true"></span>
+          Today
+        {:else}
+          Next up
+        {/if}
+      </span>
+      <span class="primary">
+        <span class="titles">{primaryLabel}</span>
+        <span class="chevron" aria-hidden="true">↓</span>
+      </span>
+    </a>
+  {:else}
+    <button
+      type="button"
+      class="live-today"
+      aria-label={ariaLabel}
+      onclick={handleClick}
+    >
+      <span class="eyebrow">
+        {#if mode === "today"}
+          <span class="live-dot" aria-hidden="true"></span>
+          Today
+        {:else}
+          Next up
+        {/if}
+      </span>
+      <span class="primary">
+        <span class="titles">{primaryLabel}</span>
+        <span class="chevron" aria-hidden="true">↓</span>
+      </span>
+    </button>
+  {/if}
 {/if}
 
 <style>
@@ -147,6 +168,7 @@
       var(--btn-shadow-color);
     font: inherit;
     text-align: left;
+    text-decoration: none;
     cursor: pointer;
     transition:
       background 0.12s ease,
@@ -154,10 +176,12 @@
       transform 0.12s ease;
   }
 
-  .live-today:hover {
-    --btn-bg: color-mix(in srgb, var(--lnk-gold) 78%, white);
-    box-shadow: 0 0 0 0 var(--btn-shadow-color);
-    transform: translate(var(--shadow-offset), var(--shadow-offset));
+  @media (hover: hover) {
+    .live-today:hover {
+      --btn-bg: color-mix(in srgb, var(--lnk-gold) 78%, white);
+      box-shadow: 0 0 0 0 var(--btn-shadow-color);
+      transform: translate(var(--shadow-offset), var(--shadow-offset));
+    }
   }
 
   .live-today:active {
