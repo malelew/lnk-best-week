@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { scrollToSection } from "$lib/scroll";
+
   let { root }: { root: HTMLElement | null } = $props();
 
   let active = $state(0);
@@ -29,9 +31,7 @@
   });
 
   function scrollTo(index: number) {
-    root
-      ?.querySelectorAll<HTMLElement>("[data-section]")
-      [index]?.scrollIntoView();
+    scrollToSection(root, index);
   }
 </script>
 
