@@ -2,8 +2,8 @@
   import { browser } from "$app/environment";
   import { onMount } from "svelte";
   import type { Event } from "$lib/events";
+  import { eventSectionIndex } from "$lib/scroll";
   import {
-    getEventDomId,
     getNextUpEvent,
     getTodayEvents,
     getWeekPhase,
@@ -15,12 +15,12 @@
     events,
     startDate,
     endDate,
-    onScrollToId,
+    onScrollToSection,
   }: {
     events: Event[];
     startDate: string;
     endDate: string;
-    onScrollToId: (id: string) => void;
+    onScrollToSection: (sectionIndex: number) => void;
   } = $props();
 
   let now = $state(new Date());
@@ -89,9 +89,12 @@
     return `Go to ${prefix}: ${scrollTarget.title}`;
   });
 
-  function handleClick() {
+  function handleClick(event: MouseEvent) {
     if (!scrollTarget) return;
-    onScrollToId(getEventDomId(scrollTarget));
+    const index = eventSectionIndex(events, scrollTarget.id);
+    if (index < 0) return;
+    onScrollToSection(index);
+    (event.currentTarget as HTMLButtonElement).blur();
   }
 </script>
 
