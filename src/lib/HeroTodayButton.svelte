@@ -1,5 +1,6 @@
 <script lang="ts">
   import { browser } from "$app/environment";
+  import { onMount } from "svelte";
   import type { Event } from "$lib/events";
   import {
     getEventDomId,
@@ -23,6 +24,10 @@
   } = $props();
 
   let now = $state(new Date());
+
+  onMount(() => {
+    now = new Date();
+  });
 
   $effect(() => {
     if (!browser) return;
@@ -90,7 +95,7 @@
   }
 </script>
 
-{#if browser && mode}
+{#if mode}
   <button
     type="button"
     class="live-today"
