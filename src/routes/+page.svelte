@@ -1,12 +1,20 @@
 <script lang="ts">
   import { formatEventDate, formatWeekRange } from "$lib/dates";
   import { bestWeek, events } from "$lib/events";
+  import HeroTodayButton from "$lib/HeroTodayButton.svelte";
+  import { getEventDomId } from "$lib/week";
   import { locationMapUrls } from "$lib/maps";
   import ScrollDots from "$lib/ScrollDots.svelte";
 
   const weekRange = formatWeekRange(bestWeek.startDate, bestWeek.endDate);
 
   let pageEl = $state<HTMLElement | null>(null);
+
+  function scrollToEvent(id: string) {
+    document
+      .getElementById(id)
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 </script>
 
 <svelte:head>
@@ -19,13 +27,18 @@
 
   <header class="hero" data-section>
     <h1>{bestWeek.label}</h1>
-    <p class="dates">{weekRange}</p>
     <p class="tagline">{bestWeek.tagline}</p>
+    <HeroTodayButton
+      {events}
+      startDate={bestWeek.startDate}
+      endDate={bestWeek.endDate}
+      onScrollToId={scrollToEvent}
+    />
   </header>
 
   <ol class="events">
     {#each events as event (event.id)}
-      <li class="event" data-section>
+      <li class="event" id={getEventDomId(event)} data-section>
         <p class="event-day">{event.emoji} {formatEventDate(event.date)}</p>
         <h2 class="event-title">
           {#if event.url}
@@ -110,10 +123,7 @@
 
     p.tagline {
       font-size: 1.5rem;
-    }
-
-    .dates {
-      color: var(--lnk-gold);
+      padding-bottom: 1.5rem;
     }
 
     .tagline {
@@ -125,24 +135,6 @@
     margin: 0 0 0.25rem;
     font-size: 1.75rem;
     line-height: 1.15;
-  }
-
-  .dates {
-    margin: 0 0 0.75rem;
-    font-size: clamp(1.125rem, 4.5vw, 2.75rem);
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--lnk-gold);
-  }
-
-  @media (min-width: 48rem) {
-    .dates {
-      font-size: 2.75rem;
-      font-weight: 600;
-      letter-spacing: normal;
-      text-transform: none;
-    }
   }
 
   .tagline {
