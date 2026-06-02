@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { browser } from "$app/environment";
-  import { onMount } from "svelte";
+  import { onMount, untrack } from "svelte";
   import type { Event } from "$lib/events";
   import { eventSectionIndex } from "$lib/scroll";
   import {
+    getMsUntilMidnight,
     getNextUpEvent,
     getTodayEvents,
     getWeekPhase,
@@ -27,32 +27,19 @@
 
   onMount(() => {
     now = new Date();
-  });
 
-  $effect(() => {
-    if (!browser) return;
+    let timeoutId: ReturnType<typeof setTimeout>;
 
-    const tick = () => {
-      now = new Date();
+    const scheduleMidnight = () => {
+      const ms = untrack(() => getMsUntilMidnight(WEEK_TZ));
+      timeoutId = window.setTimeout(() => {
+        now = new Date();
+        scheduleMidnight();
+      }, ms);
     };
 
-    const msUntilMidnight = () => {
-      const parts = new Intl.DateTimeFormat("en-US", {
-        timeZone: WEEK_TZ,
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric",
-        hour12: false,
-      }).formatToParts(now);
-      const get = (type: Intl.DateTimeFormatPartTypes) =>
-        Number(parts.find((p) => p.type === type)?.value ?? 0);
-      const elapsed =
-        get("hour") * 3600_000 + get("minute") * 60_000 + get("second") * 1000;
-      return 86_400_000 - elapsed + 1000;
-    };
-
-    const timeout = window.setTimeout(tick, msUntilMidnight());
-    return () => window.clearTimeout(timeout);
+    scheduleMidnight();
+    return () => window.clearTimeout(timeoutId);
   });
 
   const todayIso = $derived(toLocalIso(now));
@@ -154,10 +141,12 @@
       transform 0.12s ease;
   }
 
-  .live-today:hover {
-    --btn-bg: color-mix(in srgb, var(--lnk-gold) 78%, white);
-    box-shadow: 0 0 0 0 var(--btn-shadow-color);
-    transform: translate(var(--shadow-offset), var(--shadow-offset));
+  @media (hover: hover) {
+    .live-today:hover {
+      --btn-bg: color-mix(in srgb, var(--lnk-gold) 78%, white);
+      box-shadow: 0 0 0 0 var(--btn-shadow-color);
+      transform: translate(var(--shadow-offset), var(--shadow-offset));
+    }
   }
 
   .live-today:active {

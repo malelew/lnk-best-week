@@ -3,8 +3,15 @@ export function scrollToSection(root: HTMLElement | null, index: number): void {
   const section = root?.querySelectorAll<HTMLElement>("[data-section]")[index];
   if (!section) return;
 
-  // Instant scroll plays nicely with mandatory scroll-snap (esp. iOS Safari).
-  section.scrollIntoView();
+  const doc = document.documentElement;
+  doc.style.scrollSnapType = "none";
+
+  const top = section.getBoundingClientRect().top + window.scrollY;
+  window.scrollTo({ top, left: 0, behavior: "auto" });
+
+  requestAnimationFrame(() => {
+    doc.style.removeProperty("scroll-snap-type");
+  });
 }
 
 /** Event list index → section index (hero is section 0). */
