@@ -135,6 +135,23 @@ export const events: Event[] = [
     free: true,
   },
   {
+    id: "artists-against-ice",
+    title: "Artists Against ICE",
+    emoji: "🚫🧊",
+    date: "2026-06-04",
+    time: "7:30 to 9:30 PM",
+    location: "Meadowlark Coffee",
+    locationMap: {
+      query: "Meadowlark Coffee & Espresso, 1624 South St, Lincoln, NE 68502",
+      lat: 40.79230067760884,
+      lng: -96.69762681160799,
+    },
+    blurb:
+      "Sketch Club presents Artists Against ICE. An event featuring live music and performances fundraising to support communities affected by ICE enforcement. Entry is $10.",
+    url: "https://www.instagram.com/p/DZGgPubNrJh/",
+    free: false,
+  },
+  {
     id: "shit-hook",
     title: "Shithook Live Band Karaoke!",
     emoji: "🎤",
