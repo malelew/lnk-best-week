@@ -1,5 +1,10 @@
 import type { LocationMap } from "$lib/maps";
 
+type EventHighlight = {
+  text: string;
+  url?: string;
+};
+
 /** One event during the best week. Fill in or duplicate the example entries. */
 export type Event = {
   id: string;
@@ -17,6 +22,8 @@ export type Event = {
   locationMap?: LocationMap;
   /** Short line for the promo page */
   blurb: string;
+  /** Optional list of highlights to show on the event card */
+  highlights?: EventHighlight[];
   /** Link to tickets or official event page */
   url?: string;
   free?: boolean;
@@ -182,7 +189,21 @@ export const events: Event[] = [
     },
     blurb:
       "The first Friday of the month is a great time to enjoy the city's art scene and catch up with friends. You can spend the evening downtown or visit one of the city's many art galleries.",
-    url: "https://downtownlincoln.org/explore/first-friday",
+    highlights: [
+      {
+        text: "Parrish Studios",
+        url: "https://www.facebook.com/ParrishStudios",
+      },
+      {
+        text: "Pride Dance Party at The Sitch (21+)",
+        url: "https://www.instagram.com/p/DZFfocGkXVU/",
+      },
+      {
+        text: "First Friday with ECHO Collective at Sheldon Museum",
+        url: "https://sheldonartmuseum.org/first-friday-echo-collective/",
+      },
+    ],
+    url: "https://downtownlincoln.org/explore/first-friday/first-friday-artwalk",
     free: true,
   },
   {

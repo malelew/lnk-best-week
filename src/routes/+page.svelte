@@ -75,6 +75,16 @@
         {:else if event.free}
           <p class="event-badge">Free</p>
         {/if}
+        {#if event.highlights}
+          <p class="event-highlights">Event Highlights</p>
+          <ul class="highlights">
+            {#each event.highlights as highlight}
+              <li>
+                <a href={highlight.url}>{highlight.text}</a>
+              </li>
+            {/each}
+          </ul>
+        {/if}
       </li>
     {/each}
   </ol>
@@ -216,6 +226,33 @@
 
   .event-blurb {
     margin: 0;
+  }
+
+  .event-highlights {
+    font-weight: 600;
+    margin: 0.75rem 0 0.35rem;
+  }
+
+  .highlights {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .highlights li {
+    position: relative;
+    padding-left: 1.1em;
+  }
+
+  .highlights li::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    color: var(--lnk-blue);
+  }
+
+  .highlights li + li {
+    margin-top: 0.5rem;
   }
 
   .event-badge {
