@@ -115,6 +115,54 @@ function idealWeekRange(year: number): IdealWeekRange | null {
   return { startDate: toUtcIso(weekStart), endDate: toUtcIso(weekEnd) };
 }
 
+function addDaysIso(iso: string, days: number): string {
+  const date = parseUtcDate(iso);
+  date.setUTCDate(date.getUTCDate() + days);
+  return toUtcIso(date);
+}
+
+function daysBetweenIso(fromIso: string, toIso: string): number {
+  if (fromIso >= toIso) return 0;
+  const from = parseUtcDate(fromIso);
+  const to = parseUtcDate(toIso);
+  return Math.round((to.getTime() - from.getTime()) / MS_PER_DAY);
+}
+
+/** Ms until 00:00 on `isoDate` in the Lincoln calendar. */
+export function getMsUntilDateStart(
+  isoDate: string,
+  now: Date = new Date(),
+): number {
+  const todayIso = toLocalIso(now);
+  if (isoDate <= todayIso) return 0;
+
+  const msUntilTonightMidnight = getMsUntilMidnight(WEEK_TZ, now);
+  const daysUntilTarget = daysBetweenIso(addDaysIso(todayIso, 1), isoDate);
+  return msUntilTonightMidnight + daysUntilTarget * MS_PER_DAY;
+}
+
+export type CountdownParts = {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+};
+
+const SECONDS_PER_MINUTE = 60;
+const SECONDS_PER_HOUR = 60 * SECONDS_PER_MINUTE;
+const SECONDS_PER_DAY = 24 * SECONDS_PER_HOUR;
+
+export function getCountdownParts(remainingMs: number): CountdownParts {
+  const totalSeconds = Math.max(0, Math.floor(remainingMs / MS_PER_SECOND));
+  const days = Math.floor(totalSeconds / SECONDS_PER_DAY);
+  const hours = Math.floor((totalSeconds % SECONDS_PER_DAY) / SECONDS_PER_HOUR);
+  const minutes = Math.floor(
+    (totalSeconds % SECONDS_PER_HOUR) / SECONDS_PER_MINUTE,
+  );
+  const seconds = totalSeconds % SECONDS_PER_MINUTE;
+  return { days, hours, minutes, seconds };
+}
+
 /** Next ideal week that has not ended yet (Lincoln calendar). */
 export function getNextIdealWeek(now: Date = new Date()): IdealWeekRange {
   const today = toLocalIso(now);

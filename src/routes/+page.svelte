@@ -1,14 +1,35 @@
 <script lang="ts">
+  import Countdown from "$lib/Countdown.svelte";
+  import { formatWeekRange } from "$lib/dates";
+  import type { PageData } from "./$types";
+
+  let { data }: { data: PageData } = $props();
+
+  const weekRange = $derived(
+    formatWeekRange(data.nextWeek.startDate, data.nextWeek.endDate),
+  );
 </script>
 
 <svelte:head>
   <title>BEST WEEK • LNK</title>
-  <meta name="description" content="The ideal week in Lincoln, NE" />
+  <meta
+    name="description"
+    content="Countdown to the next ideal week in Lincoln, NE"
+  />
 </svelte:head>
 
 <main class="page hero">
   <header>
-    <h1>Ideal week in LNK</h1>
+    <h2>The ideal week in Lincoln, NE</h2>
+    <p>
+      If you have ever considered visiting Lincoln, then this is the ideal week
+      to book that flight. This specific week has the best of what this city has
+      to offer during the period before the summer heat settles in. Regardless
+      of whether you're a local or stopping by, plan to get out there and enjoy
+      time with your friends and family.
+    </p>
+    <p class="tagline">Next ideal week · {weekRange}</p>
+    <Countdown targetDate={data.nextWeek.startDate} />
   </header>
 </main>
 
@@ -23,6 +44,15 @@
   }
 
   .hero {
+    --slide-bg: linear-gradient(
+      155deg,
+      var(--lnk-blue) 0%,
+      #004459 30%,
+      var(--lnk-teal) 55%,
+      color-mix(in srgb, var(--lnk-teal) 45%, var(--lnk-gold)) 80%,
+      color-mix(in srgb, var(--lnk-teal) 50%, var(--lnk-gold)) 100%
+    );
+
     min-height: 100svh;
     min-height: 100dvh;
     scroll-snap-align: start;
@@ -45,8 +75,8 @@
     }
 
     p.tagline {
-      font-size: 1.5rem;
-      padding-bottom: 1.5rem;
+      font-size: 1.2rem;
+      padding-bottom: 0;
     }
 
     .tagline {
