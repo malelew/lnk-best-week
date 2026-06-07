@@ -1,93 +1,15 @@
 <script lang="ts">
-  import { formatEventDate, formatWeekRange } from "$lib/dates";
-  import { bestWeek, events } from "$lib/events";
-  import HeroTodayButton from "$lib/HeroTodayButton.svelte";
-  import { getEventDomId } from "$lib/week";
-  import { locationMapUrls } from "$lib/maps";
-  import ScrollDots from "$lib/ScrollDots.svelte";
-  import { scrollToSection } from "$lib/scroll";
-
-  const weekRange = formatWeekRange(bestWeek.startDate, bestWeek.endDate);
-
-  let pageEl = $state<HTMLElement | null>(null);
-
-  function scrollToSectionIndex(index: number) {
-    scrollToSection(pageEl, index);
-  }
 </script>
 
 <svelte:head>
-  <title>{bestWeek.label} · {weekRange}</title>
-  <meta name="description" content={bestWeek.tagline} />
+  <title>BEST WEEK • LNK</title>
+  <meta name="description" content="The ideal week in Lincoln, NE" />
 </svelte:head>
 
-<main class="page" bind:this={pageEl}>
-  <ScrollDots root={pageEl} />
-
-  <header class="hero" data-section>
-    <h1>{bestWeek.label}</h1>
-    <p class="tagline">{bestWeek.tagline}</p>
-    <HeroTodayButton
-      {events}
-      startDate={bestWeek.startDate}
-      endDate={bestWeek.endDate}
-      onScrollToSection={scrollToSectionIndex}
-    />
+<main class="page hero">
+  <header>
+    <h1>Ideal week in LNK</h1>
   </header>
-
-  <ol class="events">
-    {#each events as event (event.id)}
-      <li class="event" id={getEventDomId(event)} data-section>
-        <p class="event-day">{event.emoji} {formatEventDate(event.date)}</p>
-        <h2 class="event-title">
-          {#if event.url}
-            <a href={event.url} target="_blank" rel="noopener noreferrer"
-              >{event.title}</a
-            >
-          {:else}
-            {event.title}
-          {/if}
-        </h2>
-        <p class="event-meta">
-          {#if event.time}{event.time} ·
-          {/if}
-          {#if event.locationMap}
-            {@const mapUrls = locationMapUrls(event.locationMap)}
-            <span class="location-map">
-              <a
-                class="location-map-link location-map-link--mobile"
-                href={mapUrls.mobile}>{event.location}</a
-              >
-              <a
-                class="location-map-link location-map-link--desktop"
-                href={mapUrls.desktop}
-                target="_blank"
-                rel="noopener noreferrer">{event.location}</a
-              >
-            </span>
-          {:else}
-            {event.location}
-          {/if}
-        </p>
-        <p class="event-blurb">{event.blurb}</p>
-        {#if event.free === false}
-          <p class="event-badge">Cover / paid admission</p>
-        {:else if event.free}
-          <p class="event-badge">Free</p>
-        {/if}
-        {#if event.highlights}
-          <p class="event-highlights">Event Highlights</p>
-          <ul class="highlights">
-            {#each event.highlights as highlight}
-              <li>
-                <a href={highlight.url}>{highlight.text}</a>
-              </li>
-            {/each}
-          </ul>
-        {/if}
-      </li>
-    {/each}
-  </ol>
 </main>
 
 <style>
@@ -101,15 +23,6 @@
   }
 
   .hero {
-    --slide-bg: linear-gradient(
-      155deg,
-      var(--lnk-blue) 0%,
-      #004459 30%,
-      var(--lnk-teal) 55%,
-      color-mix(in srgb, var(--lnk-teal) 45%, var(--lnk-gold)) 80%,
-      color-mix(in srgb, var(--lnk-teal) 50%, var(--lnk-gold)) 100%
-    );
-
     min-height: 100svh;
     min-height: 100dvh;
     scroll-snap-align: start;
@@ -139,129 +52,5 @@
     .tagline {
       color: rgb(255 255 255 / 0.82);
     }
-  }
-
-  h1 {
-    margin: 0 0 0.25rem;
-    font-size: 1.75rem;
-    line-height: 1.15;
-  }
-
-  .tagline {
-    margin: 0;
-    color: #444;
-  }
-
-  .events {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .event {
-    min-height: 100svh;
-    min-height: 100dvh;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-bottom: 0;
-  }
-
-  .event-day {
-    margin: 0 0 0.25rem;
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: #666;
-  }
-
-  .event-title {
-    margin: 0 0 0.35rem;
-    font-size: 2.5rem;
-    line-height: 1.25;
-  }
-
-  .event-title a {
-    color: inherit;
-  }
-
-  .event-title a:hover {
-    color: var(--lnk-teal);
-  }
-
-  .event-meta {
-    margin: 0 0 0.5rem;
-    font-size: 1.25rem;
-    color: #555;
-  }
-
-  .location-map-link {
-    color: inherit;
-    text-decoration: underline;
-    text-decoration-color: #bbb;
-    text-underline-offset: 0.15em;
-  }
-
-  .location-map-link:hover {
-    color: var(--lnk-teal);
-    text-decoration-color: currentColor;
-  }
-
-  .location-map-link--mobile {
-    display: none;
-  }
-
-  @media (hover: none) and (pointer: coarse) {
-    .location-map-link--mobile {
-      display: inline;
-    }
-
-    .location-map-link--desktop {
-      display: none;
-    }
-  }
-
-  .event-blurb {
-    margin: 0;
-  }
-
-  .event-highlights {
-    font-weight: 600;
-    margin: 0.75rem 0 0.35rem;
-  }
-
-  .highlights {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .highlights li {
-    position: relative;
-    padding-left: 1.1em;
-  }
-
-  .highlights li::before {
-    content: "★";
-    position: absolute;
-    left: 0;
-    color: var(--lnk-blue);
-  }
-
-  .highlights li + li {
-    margin-top: 0.5rem;
-  }
-
-  .event-badge {
-    margin: 0.75rem 0 0;
-    display: inline-block;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    color: #666;
   }
 </style>

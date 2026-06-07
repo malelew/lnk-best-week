@@ -3,6 +3,15 @@
   --lnk-blue: #003543;
   --lnk-gold: #c4986a;
   --lnk-white: #ffffff;
+
+  --slide-bg: linear-gradient(
+    155deg,
+    var(--lnk-blue) 0%,
+    #004459 30%,
+    var(--lnk-teal) 55%,
+    color-mix(in srgb, var(--lnk-teal) 45%, var(--lnk-gold)) 80%,
+    color-mix(in srgb, var(--lnk-teal) 50%, var(--lnk-gold)) 100%
+  );
 }
 
 html {
