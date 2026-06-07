@@ -35,7 +35,7 @@ export function formatWeekRange(start: string, end: string): string {
       month: "long",
       day: "numeric",
     });
-    return `${startPart} to ${endPart}`;
+    return `${startPart} to ${endPart}, ${endDate.getFullYear()}`;
   }
 
   return `${dateFormat.format(startDate)} to ${dateFormat.format(endDate)}`;
