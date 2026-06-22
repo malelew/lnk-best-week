@@ -32,7 +32,7 @@
     <Countdown targetDate={data.nextWeek.startDate} />
   </header>
 
-  <div style="height: 40vmin;min-height: 360px">
+  <div class="newsletter">
     <script
       src="https://cdn.jsdelivr.net/ghost/signup-form@~0.3/umd/signup-form.min.js"
       data-text-color="#FFFFFF"
@@ -98,7 +98,10 @@
     }
   }
 
-  .countdown-header {
-    margin-bottom: 1.2rem;
+  .newsletter {
+    margin-top: 1.4rem;
+    height: 40vmin;
+    min-height: 360px;
+    border-top: 1px solid var(--lnk-gold);
   }
 </style>
