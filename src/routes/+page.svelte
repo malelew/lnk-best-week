@@ -19,7 +19,7 @@
 </svelte:head>
 
 <main class="page hero">
-  <header>
+  <header class="countdown-header">
     <h2>The ideal week in Lincoln, NE</h2>
     <p>
       If you have ever considered visiting Lincoln, then this is the ideal week
@@ -31,6 +31,20 @@
     <p class="tagline">Next ideal week · {weekRange}</p>
     <Countdown targetDate={data.nextWeek.startDate} />
   </header>
+
+  <div style="height: 40vmin;min-height: 360px">
+    <script
+      src="https://cdn.jsdelivr.net/ghost/signup-form@~0.3/umd/signup-form.min.js"
+      data-text-color="#FFFFFF"
+      data-button-color="#c4986a"
+      data-button-text-color="#FFFFFF"
+      data-title=" "
+      data-description="Looking for something to do this week? This Week In Lincoln is an independent weekly newsletter publishing an irreverent, opinionated, and very subjective guide to the Star City."
+      data-site="https://lincoln.ghost.io/"
+      data-locale="en"
+      async
+    ></script>
+  </div>
 </main>
 
 <style>
@@ -82,5 +96,9 @@
     .tagline {
       color: rgb(255 255 255 / 0.82);
     }
+  }
+
+  .countdown-header {
+    margin-bottom: 1.2rem;
   }
 </style>
